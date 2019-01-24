@@ -22,7 +22,7 @@
 
         </ul>
     </div>
-    <button id="save" onclick="save();">Сохранить</button>
+    <!-- <button id="save" onclick="save();">Сохранить</button> -->
 
 
     <script>
@@ -31,26 +31,28 @@
             const list = $('#todolist');
             const input = $('input');
 
-            function addTodo (value) {
+            function addTodo(value) {
                 todos.push(value);
                 renderTodos();
             }
 
-            function renderTodos () {
+            function renderTodos() {
                 list.empty();
-                $.each(todos, function () {
-                    list.append(`
+                $.each(todos, function (i) {
+                    list.append(
+                        `
                     <li>${this}
-                    <button>del</button>    
+                    <button data-index="${i}">del</button>    
                     </li>
-                    
-                    `);
-                    
+                    `
+                    );
+
                 });
             }
 
-            function removeTodo (index){
+            function removeTodo(index) {
                 todos.splice(index, 1);
+                renderTodos();
             }
 
             input.on('change', function (e) {
@@ -58,9 +60,12 @@
                 this.value = '';
             });
 
-            
-                
-           
+            $(document).on('click', 'button', function () {
+                const index = $(this).data('index')
+                removeTodo(index);
+            })
+
+
 
         });
     </script>
