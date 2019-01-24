@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <p>Что нужно сделать?</p>
+
+    <input type="text" value="" placeholder="input item">
+    <button id="add">Add</button>
+
+
+    <div id="myDiv">
+        <ul id="todolist">
+
+        </ul>
+    </div>
+    <button id="save" onclick="save();">Сохранить</button>
+
+
+    <script>
+        jQuery(function ($) {
+            const todos = [];
+            const list = $('#todolist');
+            const input = $('input');
+
+            function addTodo (value) {
+                todos.push(value);
+                renderTodos();
+            }
+
+            function renderTodos () {
+                list.empty();
+                $.each(todos, function () {
+                    list.append(`
+                    <li>${this}
+                    <button>del</button>    
+                    </li>
+                    
+                    `);
+                    
+                });
+            }
+
+            function removeTodo (index){
+                todos.splice(index, 1);
+            }
+
+            input.on('change', function (e) {
+                addTodo(this.value);
+                this.value = '';
+            });
+
+            
+                
+           
+
+        });
+    </script>
+</body>
+
+</html>
